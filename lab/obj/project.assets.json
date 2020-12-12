@@ -6036,11 +6036,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab\\lab.csproj",
+      "projectUniqueName": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab1\\lab\\lab.csproj",
       "projectName": "lab",
-      "projectPath": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab\\lab.csproj",
+      "projectPath": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab1\\lab\\lab.csproj",
       "packagesPath": "C:\\Users\\Arthur\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab\\obj\\",
+      "outputPath": "C:\\Users\\Arthur\\Desktop\\coding\\lab\\lab1\\lab\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Arthur\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6055,6 +6055,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -6066,6 +6067,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
@@ -6097,7 +6099,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

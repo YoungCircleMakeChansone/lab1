@@ -1,10 +1,10 @@
 ﻿using lab.Entities;
 using lab.EntityFramework;
 using lab.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using lab.Observer;
+using lab.Observer.Listeners;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
 
 namespace lab.Repositories
@@ -13,13 +13,21 @@ namespace lab.Repositories
     {
         private DataContext Database;
 
+        private EventManager events = new EventManager();
         public EventRepository(DataContext db)
         {
             Database = db;
+
+            events.Attach(new EventEntitieListener());
         }
 
         public void Add(Event item)
-            =>  Database.Events.Add(item);
+        {
+            Database.Events.Add(item);
+
+            events.Notify("Add");
+        }
+            
 
         public void Delete(int Id)
         {

@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using lab.Observer;
+using lab.Observer.Listeners;
 
 namespace lab.Repositories
 {
@@ -13,13 +15,20 @@ namespace lab.Repositories
     {
         private DataContext Database;
 
+        private EventManager events = new EventManager();
+
         public TypeRepository(DataContext db)
         {
             Database = db;
+
+            events.Attach(new TypeEntitieListener());
         }
 
         public void Add(EventType item)
-            =>  Database.Types.AddAsync(item);
+        {
+            Database.Types.AddAsync(item);
+            events.Notify("Add");
+        }
 
         public void Delete(int Id)
         {

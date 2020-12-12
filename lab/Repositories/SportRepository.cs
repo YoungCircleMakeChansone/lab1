@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using lab.Observer;
+using lab.Observer.Listeners;
 
 namespace lab.Repositories
 {
@@ -13,14 +15,19 @@ namespace lab.Repositories
     {
         private DataContext Database;
 
+        private EventManager events = new EventManager();
+
         public SportRepository(DataContext db)
         {
             Database = db;
+
+            events.Attach(new SportEntitieListener());
         }
 
         public void Add(Sport item)
         {
             Database.Sports.Add(item);
+            events.Notify("Add");
         }
 
         public void Delete(int Id)
