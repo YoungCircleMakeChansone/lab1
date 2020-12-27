@@ -1,5 +1,10 @@
-﻿using lab.EntityFramework;
+﻿using lab.Entities;
+using lab.EntityFramework;
+using lab.MongoContext;
+using lab.MongoModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace lab.Repositories
@@ -70,6 +75,44 @@ namespace lab.Repositories
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void ReplicateToMongo(MongoDbContext context)
+        {
+            MongoRepository _db = new MongoRepository(context);
+
+            var items = this.Event.GetAll();
+
+            foreach(var obj  in items)
+            {
+                MongoEvent item = new MongoEvent
+                {
+                    Name = obj.Name,
+                    Format = "randomType",
+                    Sport = "anysports"
+                };
+
+                context.CollectionEvents.InsertOne(item);
+            }
+        }
+
+        public void ReplicateFromMongo(MongoDbContext context)
+        {
+            MongoRepository _db = new MongoRepository(context);
+            var items = this.Event.GetAll();
+            IEnumerable<MongoEvent> events = _db.GettAllSports();
+
+            foreach (var obj in events)
+            {
+                Event @event = new Event
+                {
+                    Name = obj.Name,
+                    Type = this.Type.GetAll().First()
+                };
+
+                this.Event.Add(@event);
+            }
+            this.Save();
         }
     }
 }

@@ -42,8 +42,7 @@ namespace lab.Presentation
 
             foreach(var item in events)
             {
-                Console.WriteLine(item.Id+"\t"+item.Name+"\t"+item.Type.Name+"\t"+
-                    "sports number : "+item.Sports.Count);
+                Console.WriteLine(item.Id+"\t"+item.Name+"\t");
             }
 
         }

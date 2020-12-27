@@ -13,19 +13,26 @@ namespace lab
     {
         static void Main(string[] args)
         {
+            //ViewController view = new ViewController("DefaultConnection");
+
+            //view.Run();
             MongoDbContext context = new MongoDbContext();
             MongoRepository _db = new MongoRepository(context);
 
-            //MongoEvent item = new MongoEvent { Name = "event1", Format = "League", Sport = "table tennis" };
+            //MongoEvent item = new MongoEvent { Name = "football1", Format = "League", Sport = "EPL1" };
 
             //context.CollectionEvents.InsertOne(item);
 
-            IEnumerable<MongoEvent> events = _db.GettAllSports();
+            //IEnumerable<MongoEvent> events = _db.GettAllSports();
 
-            foreach(var item in events)
-            {
-                Console.WriteLine(item.Name);
-            }
+            //foreach (var item1 in events)
+            //{
+            //    Console.WriteLine("Event : ");
+            //    Console.WriteLine(item1.Name);
+            //}
+
+            UnitOfWork db = new UnitOfWork("DefaultConnection");
+            db.ReplicateFromMongo(context);
         }
     }
 }
