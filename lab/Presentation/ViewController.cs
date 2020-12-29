@@ -3,12 +3,13 @@ using lab.Entities;
 using lab.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace lab.Presentation
 {
     public class ViewController
     {
-        private UnitOfWork Database;
+        public  UnitOfWork Database;
 
         public ViewController(string stringconnection)
         {
@@ -97,6 +98,24 @@ namespace lab.Presentation
 
             Database.Type.Add(new EventType { Name = name });
             Database.Save();
+        }
+        
+        public User LogIn()
+        {
+            Console.WriteLine("Enter r login :");
+            string login = Console.ReadLine();
+
+
+            var user = Database.User.GetAll()
+                .Where(item => item.Login == login).FirstOrDefault();
+
+            if(user is null)
+            {
+                Console.WriteLine("Wrong");
+                throw new NullReferenceException();
+            }
+
+            return user;
         }
 
         public void DeleteType()

@@ -21,5 +21,7 @@ namespace lab.EntityFramework
         public DbSet<Event> Events { get; set; }
         public DbSet<EventType> Types { get; set; }
         public DbSet<Sport> Sports { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

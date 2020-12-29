@@ -3,6 +3,7 @@ using lab.Entities;
 using lab.MongoContext;
 using lab.MongoModels;
 using lab.Presentation;
+using lab.Proxy;
 using lab.Repositories;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,12 @@ namespace lab
     {
         static void Main(string[] args)
         {
-            //ViewController view = new ViewController("DefaultConnection");
-
+            ViewController view = new ViewController("DefaultConnection");
+            ViewControllerProxy proxy = new ViewControllerProxy(view);
+            proxy.Run();
             //view.Run();
-            MongoDbContext context = new MongoDbContext();
-            MongoRepository _db = new MongoRepository(context);
+            //MongoDbContext context = new MongoDbContext();
+            //MongoRepository _db = new MongoRepository(context);
 
             //MongoEvent item = new MongoEvent { Name = "football1", Format = "League", Sport = "EPL1" };
 
@@ -31,8 +33,8 @@ namespace lab
             //    Console.WriteLine(item1.Name);
             //}
 
-            UnitOfWork db = new UnitOfWork("DefaultConnection");
-            db.ReplicateFromMongo(context);
+
+
         }
     }
 }

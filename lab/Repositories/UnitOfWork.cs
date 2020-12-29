@@ -1,5 +1,6 @@
 ﻿using lab.Entities;
 using lab.EntityFramework;
+using lab.Memento;
 using lab.MongoContext;
 using lab.MongoModels;
 using System;
@@ -12,14 +13,17 @@ namespace lab.Repositories
     public class UnitOfWork
     {
         private DataContext Database;
-
+        private Snapshot Snapshot;
         private TypeRepository typeRepository;
         private EventRepository eventRepository;
         private SportRepository sportRepository;
+        private RoleRepository roleRepository;
+        private UserRepository userRepository;
 
         public UnitOfWork(string connection)
         {
             Database = ContextFactory.Create(connection);
+            Snapshot = new Snapshot(Database);
         }
 
         public TypeRepository Type
@@ -52,9 +56,35 @@ namespace lab.Repositories
             }
         }
 
+        public RoleRepository Role
+        {
+            get
+            {
+                if (roleRepository is null)
+                    roleRepository = new RoleRepository(Database);
+                return roleRepository;
+            }
+        }
+
+        public UserRepository User
+        {
+            get
+            {
+                if (userRepository is null)
+                    userRepository = new UserRepository(Database);
+                return userRepository;
+            }
+        }
+
         public void Save()
         {
             Database.SaveChanges();
+            Snapshot.Sports = Database.Set<Sport>();
+        }
+
+        public void Rollback()
+        {
+            Database.Sports = Snapshot.Sports;
         }
 
         private bool disposed = false;
